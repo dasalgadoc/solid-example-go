@@ -1,4 +1,4 @@
-package book
+package entrypoints
 
 import (
 	"github.com/gin-gonic/gin"

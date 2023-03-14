@@ -22,7 +22,7 @@ func TestAnEmptyBook(t *testing.T) {
 
 func TestABookWithAuthorOnly(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
-	book := book.NewBook("", "John Doe", "")
+	book := book.NewBook("", "", "John Doe", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
 	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - \n"))
@@ -30,7 +30,7 @@ func TestABookWithAuthorOnly(t *testing.T) {
 
 func TestABookWithTitleOnly(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
-	book := book.NewBook("1001 nights", "", "")
+	book := book.NewBook("", "1001 nights", "", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
 	s.thenExpectedFormatWasReturn(fmt.Sprintf(" - 1001 nights\n"))
@@ -38,7 +38,7 @@ func TestABookWithTitleOnly(t *testing.T) {
 
 func TestABookWithCurrentPageOnly(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
-	book := book.NewBook("", "", "page in blank")
+	book := book.NewBook("", "", "", "page in blank")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
 	s.thenExpectedFormatWasReturn(fmt.Sprintf(" - \npage in blank"))
@@ -46,7 +46,7 @@ func TestABookWithCurrentPageOnly(t *testing.T) {
 
 func TestABookWithAuthorAndTitle(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
-	book := book.NewBook("1001 nights", "john doe", "")
+	book := book.NewBook("", "1001 nights", "john doe", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
 	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - 1001 nights\n"))
@@ -54,7 +54,7 @@ func TestABookWithAuthorAndTitle(t *testing.T) {
 
 func TestAFullBook(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
-	book := book.NewBook("1001 nights", "john doe", "page in blank")
+	book := book.NewBook("", "1001 nights", "john doe", "page in blank")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
 	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - 1001 nights\npage in blank"))

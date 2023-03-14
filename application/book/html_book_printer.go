@@ -17,6 +17,6 @@ func (hbp *HtmlBookPrinter) FormatBook(book book.Book) string {
 }
 
 func (hbp *HtmlBookPrinter) ServeBook(title, author string) string {
-	book := book.NewBook(title, author, "")
+	book := book.NewBook("", title, author, "")
 	return hbp.FormatBook(book)
 }
