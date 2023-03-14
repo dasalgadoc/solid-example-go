@@ -1,10 +1,14 @@
 package application
 
-import "solid-example-go/infrastructure/ping"
+import (
+	"solid-example-go/infrastructure/book"
+	"solid-example-go/infrastructure/ping"
+)
 
 type (
 	Application struct {
-		ping ping.Ping
+		ping        ping.Ping
+		bookPrinter book.BookPrinterController
 	}
 )
 
