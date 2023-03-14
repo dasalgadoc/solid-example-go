@@ -6,10 +6,10 @@ type InMemoryBookRepository struct {
 	Books map[string]book.Book
 }
 
-func NewInMemoryBookRepository() book.BookRepository {
+func NewInMemoryBookRepository() (book.BookRepository, error) {
 	return &InMemoryBookRepository{
 		Books: make(map[string]book.Book),
-	}
+	}, nil
 }
 
 func (m *InMemoryBookRepository) Save(b book.Book) error {

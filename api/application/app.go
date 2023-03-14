@@ -3,6 +3,7 @@ package application
 import (
 	"fmt"
 	"solid-example-go/api/builders"
+	"solid-example-go/api/configs"
 	"solid-example-go/api/providers"
 	"solid-example-go/domain/book"
 	"solid-example-go/infrastructure/book/entrypoints"
@@ -25,7 +26,9 @@ type (
 )
 
 func BuildApplication() *Application {
-	repositories, err := buildRepositories()
+	appConfig := getConfiguration()
+
+	repositories, err := buildRepositories(appConfig)
 	if err != nil {
 		panic(fmt.Errorf("error building repositories: %w", err))
 	}
@@ -38,8 +41,16 @@ func BuildApplication() *Application {
 	}
 }
 
-func buildRepositories() (*applicationRepositories, error) {
-	books, err := providers.GetBookRepository()
+func getConfiguration() configs.Config {
+	appConfig, err := configs.LoadConfig("./api/configs/config.yaml")
+	if err != nil {
+		panic(fmt.Errorf("error getting configuration: %w", err))
+	}
+	return appConfig
+}
+
+func buildRepositories(config configs.Config) (*applicationRepositories, error) {
+	books, err := providers.GetBookRepository(config)
 	if err != nil {
 		return nil, fmt.Errorf("error getting provider BookRepository: %w", err)
 	}
