@@ -8,21 +8,19 @@ import (
 
 const MESSAGE_FORM = "New book (%s) created!"
 
-type SlackNotificationHandler struct {
-	SlackNotificationSender SlackNotificationSender
-	SlackChannels           []notification.ReceiverSlackChannel
+type BookCreatedNotificationHandler struct {
+	NotificationSenders []notification.MultipleSender
 }
 
 func NewSlackNotificationHandler(
-	sender SlackNotificationSender,
-	channels []notification.ReceiverSlackChannel) SlackNotificationHandler {
-	return SlackNotificationHandler{
-		SlackNotificationSender: sender,
-		SlackChannels:           channels,
+	senders []notification.MultipleSender,
+) BookCreatedNotificationHandler {
+	return BookCreatedNotificationHandler{
+		NotificationSenders: senders,
 	}
 }
 
-func (s *SlackNotificationHandler) Update(event events.DomainEvent) error {
+func (s *BookCreatedNotificationHandler) Update(event events.DomainEvent) error {
 	bookCreatedDomainEvent, ok := event.(events.BookCreatedDomainEvent)
 	if !ok {
 		return events.EventCastFail(event.EventName(), "book_created")
@@ -33,8 +31,9 @@ func (s *SlackNotificationHandler) Update(event events.DomainEvent) error {
 	}
 	content := notification.NewNotificationContent(fmt.Sprintf(MESSAGE_FORM, bookCreatedDomainEvent.ISBN))
 
-	for _, slackChannel := range s.SlackChannels {
-		s.SlackNotificationSender.SendNotification(&slackChannel, subject, content)
+	for _, sender := range s.NotificationSenders {
+		sender.SendToMultipleDestination(subject, content)
 	}
+
 	return nil
 }
