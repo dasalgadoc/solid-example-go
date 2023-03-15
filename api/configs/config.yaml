@@ -1,5 +1,9 @@
 repository:
   type: InMemory
+notifications:
+  - type: slack
+    receivers:
+      - channel-name
 event_bus:
   type: InMemory
   observers_by_event:

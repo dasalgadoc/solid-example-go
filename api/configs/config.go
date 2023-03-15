@@ -11,12 +11,18 @@ const (
 )
 
 type Config struct {
-	Repository Repository `yaml:"repository"`
-	EventBus   EventBus   `yaml:"event_bus"`
+	Repository    Repository     `yaml:"repository"`
+	Notifications []Notification `yaml:"notifications"`
+	EventBus      EventBus       `yaml:"event_bus"`
 }
 
 type Repository struct {
 	Type string `yaml:"type"`
+}
+
+type Notification struct {
+	Type      string   `yaml:"type"`
+	Receivers []string `yaml:"receivers"`
 }
 
 type EventBus struct {
