@@ -6,16 +6,27 @@ import (
 )
 
 const (
-	InMemoryRepoType = "InMemory"
-	MySqlRepoType    = "MySql"
+	InMemoryType  = "InMemory"
+	MySqlRepoType = "MySql"
 )
 
 type Config struct {
 	Repository Repository `yaml:"repository"`
+	EventBus   EventBus   `yaml:"event_bus"`
 }
 
 type Repository struct {
 	Type string `yaml:"type"`
+}
+
+type EventBus struct {
+	Type             string             `yaml:"type"`
+	ObserversByEvent []ObserversByEvent `yaml:"observers_by_event"`
+}
+
+type ObserversByEvent struct {
+	EventName string   `yaml:"event_name"`
+	Observers []string `yaml:"observers"`
 }
 
 func LoadConfig(file string) (Config, error) {

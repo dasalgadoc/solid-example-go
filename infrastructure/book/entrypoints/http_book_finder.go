@@ -18,8 +18,7 @@ func NewHttpBookFinder(bookGetterUC book.BookGetter) HttpBookFinder {
 }
 
 func (hbf *HttpBookFinder) FindBook(c *gin.Context) {
-	var isbn string
-	isbn = c.Query("isbn")
+	isbn := c.Query("isbn")
 	if isbn == "" {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return

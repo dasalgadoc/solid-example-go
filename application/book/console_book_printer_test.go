@@ -1,7 +1,6 @@
 package book
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"solid-example-go/domain/book"
 	"testing"
@@ -17,7 +16,7 @@ type consoleBookPrinterTestScenario struct {
 func TestAnEmptyBook(t *testing.T) {
 	s := startConsoleBookPrinterTestScenario(t)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf(" - \n"))
+	s.thenExpectedFormatWasReturn(" - \n")
 }
 
 func TestABookWithAuthorOnly(t *testing.T) {
@@ -25,7 +24,7 @@ func TestABookWithAuthorOnly(t *testing.T) {
 	book := book.NewBook("", "", "John Doe", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - \n"))
+	s.thenExpectedFormatWasReturn("JOHN DOE - \n")
 }
 
 func TestABookWithTitleOnly(t *testing.T) {
@@ -33,7 +32,7 @@ func TestABookWithTitleOnly(t *testing.T) {
 	book := book.NewBook("", "1001 nights", "", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf(" - 1001 nights\n"))
+	s.thenExpectedFormatWasReturn(" - 1001 nights\n")
 }
 
 func TestABookWithCurrentPageOnly(t *testing.T) {
@@ -41,7 +40,7 @@ func TestABookWithCurrentPageOnly(t *testing.T) {
 	book := book.NewBook("", "", "", "page in blank")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf(" - \npage in blank"))
+	s.thenExpectedFormatWasReturn(" - \npage in blank")
 }
 
 func TestABookWithAuthorAndTitle(t *testing.T) {
@@ -49,7 +48,7 @@ func TestABookWithAuthorAndTitle(t *testing.T) {
 	book := book.NewBook("", "1001 nights", "john doe", "")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - 1001 nights\n"))
+	s.thenExpectedFormatWasReturn("JOHN DOE - 1001 nights\n")
 }
 
 func TestAFullBook(t *testing.T) {
@@ -57,7 +56,7 @@ func TestAFullBook(t *testing.T) {
 	book := book.NewBook("", "1001 nights", "john doe", "page in blank")
 	s.givenABook(book)
 	s.whenFormatBookIsRequired()
-	s.thenExpectedFormatWasReturn(fmt.Sprintf("JOHN DOE - 1001 nights\npage in blank"))
+	s.thenExpectedFormatWasReturn("JOHN DOE - 1001 nights\npage in blank")
 }
 
 /*-- steps --*/

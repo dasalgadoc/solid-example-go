@@ -9,8 +9,8 @@ import (
 const repositoryName = "book"
 
 var bookRepositories = map[string]func(config configs.Config) (book.BookRepository, error){
-	configs.InMemoryRepoType: buildInMemoryBookRepository,
-	configs.MySqlRepoType:    buildMySQLBookRepository,
+	configs.InMemoryType:  buildInMemoryBookRepository,
+	configs.MySqlRepoType: buildMySQLBookRepository,
 }
 
 func GetBookRepository(config configs.Config) (book.BookRepository, error) {

@@ -17,8 +17,7 @@ func NewHttpBookDeleter(bookDeleterUC book.BookDeleter) HttpBookDeleter {
 }
 
 func (hbd *HttpBookDeleter) DeleteBook(c *gin.Context) {
-	var isbn string
-	isbn = c.Query("isbn")
+	isbn := c.Query("isbn")
 	if isbn == "" {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
