@@ -46,7 +46,7 @@ func BuildApplication() *Application {
 	return &Application{
 		bookCreator: builders.BuildBookCreator(repositories.bookRepository, eventBus.eventbus),
 		bookGetter:  builders.BuildBookFinder(repositories.bookRepository),
-		bookUpdater: builders.BuildBookUpdater(repositories.bookRepository),
+		bookUpdater: builders.BuildBookUpdater(repositories.bookRepository, eventBus.eventbus),
 		bookDeleter: builders.BuildBookDeleter(repositories.bookRepository),
 	}
 }

@@ -13,10 +13,10 @@ func NewInMemoryEventBus() (events.EventBus, error) {
 }
 
 func (m *InMemoryEventBus) Notify(event events.DomainEvent) error {
-	observers, exists := m.Observers[event.EventName()]
-	if !exists {
-		return events.EventNotFound(event.EventName())
-	}
+	observers := m.Observers[event.EventName()]
+	//if !exists {
+	//	return events.EventNotFound(event.EventName())
+	//}
 	for _, observer := range observers {
 		err := observer.Update(event)
 		if err != nil {

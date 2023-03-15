@@ -26,6 +26,11 @@ func (hbu *HttpBookUpdater) UpdateBook(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
+	if !request.HasISBN() {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
 	err = hbu.bookUpdater.Update(request.ISBN, request.Author, request.Title)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError,

@@ -1,19 +1,33 @@
 package book
 
-import "solid-example-go/domain/book"
+import (
+	"solid-example-go/domain/book"
+	"solid-example-go/domain/events"
+	"time"
+)
 
 type BookUpdater struct {
 	bookRepository book.BookRepository
+	eventBus       events.EventBus
 }
 
-func NewBookUpdater(r book.BookRepository) BookUpdater {
+func NewBookUpdater(r book.BookRepository, e events.EventBus) BookUpdater {
 	return BookUpdater{
 		bookRepository: r,
+		eventBus:       e,
 	}
 }
 
 func (bu *BookUpdater) Update(ISBN, author, title string) error {
-	formerBook, _ := bu.bookRepository.Find(ISBN)
+	formerBook, err := bu.bookRepository.Find(ISBN)
+	if err != nil {
+		return book.DoesNotExist()
+	}
 	newBook := formerBook.ReplaceValues(author, title)
-	return bu.bookRepository.Update(newBook)
+	err = bu.bookRepository.Update(newBook)
+	if err != nil {
+		return err
+	}
+
+	return bu.eventBus.Notify(events.NewBookUpdatedDomainEvent(time.Now(), formerBook, newBook))
 }

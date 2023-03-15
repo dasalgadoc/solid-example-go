@@ -17,12 +17,6 @@ func NewBook(ISBN, title, author, currentPage string) Book {
 }
 
 func (b *Book) ReplaceValues(author, title string) Book {
-	if author == "" {
-		author = b.Author
-	}
-	if title == "" {
-		title = b.Title
-	}
 	return Book{
 		ISBN:        b.ISBN,
 		Author:      author,

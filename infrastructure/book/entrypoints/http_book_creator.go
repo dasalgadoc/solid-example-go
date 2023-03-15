@@ -26,6 +26,11 @@ func (hbc *HttpBookCreator) CreateBook(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
+	if !request.HasISBN() {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
 	err = hbc.bookCreator.Create(request.ISBN, request.Author, request.Title)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError,
