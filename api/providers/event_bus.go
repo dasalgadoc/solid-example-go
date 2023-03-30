@@ -7,7 +7,8 @@ import (
 )
 
 var eventBuses = map[string]func(config configs.Config) (events.EventBus, error){
-	configs.InMemoryType: buildInMemoryEventBus,
+	configs.InMemoryType:   buildInMemoryEventBus,
+	configs.ConcurrentType: buildConcurrentEventBus,
 }
 
 func GetEventBus(config configs.Config) (events.EventBus, error) {
@@ -21,6 +22,15 @@ func GetEventBus(config configs.Config) (events.EventBus, error) {
 
 func buildInMemoryEventBus(config configs.Config) (events.EventBus, error) {
 	bus, err := eventbus.NewInMemoryEventBus()
+	if err != nil {
+		return nil, err
+	}
+	registerObservers(config, bus)
+	return bus, nil
+}
+
+func buildConcurrentEventBus(config configs.Config) (events.EventBus, error) {
+	bus, err := eventbus.NewConcurrentEventBus()
 	if err != nil {
 		return nil, err
 	}

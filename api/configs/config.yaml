@@ -5,7 +5,7 @@ notifications:
     receivers:
       - channel-name
 event_bus:
-  type: InMemory
+  type: Concurrent
   observers_by_event:
     - event_name: book_created
       observers:

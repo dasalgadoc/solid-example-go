@@ -6,8 +6,9 @@ import (
 )
 
 const (
-	InMemoryType  = "InMemory"
-	MySqlRepoType = "MySql"
+	InMemoryType   = "InMemory"
+	ConcurrentType = "Concurrent"
+	MySqlRepoType  = "MySql"
 )
 
 type Config struct {
