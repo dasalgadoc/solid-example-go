@@ -1,11 +1,13 @@
 package main
 
-import "solid-example-go/api/application"
+import (
+	"solid-example-go/cmd/api"
+)
 
 func main() {
 	var (
-		engine = application.BuildEngine(application.BuildApplication())
-		server = application.BuildServer(engine)
+		engine = api.BuildEngine(api.BuildApplication())
+		server = api.BuildServer(engine)
 	)
 
 	err := server.ListenAndServe()
